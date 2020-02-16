@@ -1,0 +1,51 @@
+/*
+#include "xxx.h"
+
+//#define VER_PRODUCTBUILD       42
+//#define VER_PRODUCTVERSION_STR "1.01"
+//#define VER_PRODUCTBETA_STR    " "
+
+//#define VER_PRODUCTNAME_STR    " xxxxxx " 
+#define VER_FILETYPE
+#define VER_FILESUBTYPE
+#define VER_FILEDESCRIPTION_STR " xxxxxx "
+#define VER_INTERNALNAME_STR    " xxxxxx "
+
+#include <common.ver>
+*/
+//////////////////////////////////////////////////////
+
+#include "windows.h"
+#include "ntverp.h"
+
+#define	VER_FILETYPE	VFT_DRV
+#define	VER_FILESUBTYPE	VFT2_DRV_SYSTEM
+
+//
+// **** UltimaPlus ****
+//
+
+#define VER_FILEDESCRIPTION_STR     "IDE RAID Miniport Driver"
+#define VER_INTERNALNAME_STR        "Ez.sys"
+#define VER_ORIGINALFILENAME_STR    "Ez.sys"
+// Common.ver
+#define VER_LEGALCOPYRIGHT_YEARS    "2003"
+#define VER_LEGALCOPYRIGHT_STR "Copyright (C) Hackers INC. " VER_LEGALCOPYRIGHT_YEARS
+#undef VER_PRODUCTNAME_STR
+#define VER_PRODUCTNAME_STR "Hackers INC. Ez Series Windows 9X/NT/2000 Driver "
+#undef VER_PRODUCTVERSION
+#define VER_PRODUCTVERSION 2,16 //4,00,01,001
+#undef VER_FILEVERSION
+#define VER_FILEVERSION VER_PRODUCTVERSION
+#undef VER_PRODUCTVERSION_STR
+#define VER_PRODUCTVERSION_STR 
+#define VER_FILEVERSION_STR VER_PRODUCTVERSION_STR
+#undef VER_ORIGINALFILENAME_STR 
+#define VER_ORIGINALFILENAME_STR VER_INTERNALNAME_STR
+// Netverp.h  
+#undef VER_COMPANYNAME_STR
+#define VER_COMPANYNAME_STR "Hackers INC."
+//#define VER_PRODUCTNAME_STR "Aralion Technology,INC. UltimaPlus Windows 9X/NT Driver"
+
+#include "common.ver"
+

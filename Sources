@@ -1,0 +1,19 @@
+TARGETNAME=Ez
+TARGETPATH=obj
+TARGETTYPE=MINIPORT
+INCLUDES=..\..\inc;..\..\..\inc
+
+TARGETLIBS=$(BASEDIR)\libchk\i386\ScsiPort.lib \
+		   $(BASEDIR)\libchk\i386\hal.lib \
+		   $(BASEDIR)\libchk\i386\wdm.lib
+
+SOURCES= DriverEntry.c \
+	 EzDeviceAccess.c \
+	 EzController.c \
+	 EzHwInitialize.c \
+	 EzResetController.c \
+	 EzStartIo.c 
+
+C_DEFINES=$(C_DEFINES) -Dstrnicmp=_strnicmp
+
+#NTTARGETFILE0=Ez.h

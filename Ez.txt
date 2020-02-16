@@ -1,0 +1,2 @@
+o allocation action 이라고 붙은 부분이 DMA data table 만드는 부분이거든요
+피지컬 어드레스 base 1 영역이예요

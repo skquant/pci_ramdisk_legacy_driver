@@ -1,0 +1,94 @@
+;-------------------------------------------------------------------------
+;INDOE       -- This file contains descriptions of INODE
+;               SCSI Host adapters supported in Windows 95, 98, & 2000
+;-------------------------------------------------------------------------
+[Version]
+signature="$Windows NT$"
+Class=SCSIAdapter
+ClassGUID={4D36E97B-E325-11CE-BFC1-08002BE10318}
+Provider=%INF_PROVIDER%
+
+; Class Install
+[ClassInstall]
+Addreg=SCSIReg
+
+[SCSIReg]
+HKR,,,,%SCSIClassName%
+
+[DestinationDirs]
+DefaultDestDir = 12 ; DIRID_DRIVERS
+
+[Manufacturer]
+%Ez74%=Ez74
+;
+; diskid = description[,[tagfile][,<unused>,subdir]]
+;
+[SourceDisksNames]
+1 = %FLOPPY_DESCRIPTION%,,,
+
+;
+; filename_in_source = diskid[,[subdir][,size]]
+;
+[SourceDisksFiles]
+Ez.sys = 1
+
+;[SourceDisksFiles.alpha]
+;Ez.sys = 1,\alpha
+
+;[SourceDisksFiles.ppc]
+;Ez.sys = 1,\ppc
+
+;manufacturer device list
+[Ez]
+%PCI\VEN_165F&DEV_FD00.DeviceDesc%= Ez_Inst,PCI\VEN_165F&DEV_FD00
+;%PCI\VEN_134A&DEV_0002.DeviceDesc%= Ez_Inst,ROOT\*INODESC
+
+; ---- inode Installation Section  -----
+[Ez_Inst]
+CopyFiles = @Ez.sys
+
+[Ez_Inst.Services]
+AddService = Ez, 2, Ez_Service_Inst, Miniport_EventLog_Inst
+
+[Ez_Service_Inst]
+ServiceType	= 1		; SERVICE_KERNEL_DRIVER
+StartType	= 0		; SERVICE_BOOT_START
+ErrorControl	= 1		; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\Ez.sys
+LoadOrderGroup	= SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[pnpsafe_pci_addreg]
+HKR, "Parameters\PnpInterface", "5", 0x00010001, 0x00000001
+
+[pnpsafe_isa_addreg]
+HKR, "Parameters\PnpInterface", "1", 0x00010001, 0x00000001
+
+[pnpsafe_pcmcia_addreg]
+; isa with no legacy detection
+HKR, "Parameters\PnpInterface", "1", 0x00010001, 0x00000011
+
+[cardbus_interface_type]
+HKR, "ScsiPort", "LegacyInterfaceType", 0x00010001, 0x00000005
+
+[pcmcia_interface_type]
+HKR, "ScsiPort", "LegacyInterfaceType", 0x00010001, 0x00000008
+
+[eisa_legacy_addreg]
+HKR, "Parameters", "LegacyAdapterDetection", 0x00010001, 0x00000001
+
+[Miniport_EventLog_Inst]
+AddReg = Miniport_EventLog_AddReg
+
+[Miniport_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll"
+HKR,,TypesSupported,0x00010001,7
+
+;----------------------------
+[Strings]
+SCSIClassName="SCSI Controllers"
+INF_PROVIDER="Ez"
+Ez74="Ez LLC. "
+FLOPPY_DESCRIPTION="Ez74 Ramdisk Board Driver "
+PCI\VEN_165F&DEV_FD00.DeviceDesc="Ez SDRAM Disk SCSI Controller"
+
